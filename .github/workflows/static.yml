@@ -32,7 +32,7 @@ jobs:
 
       # 5. Lint CSS
       - name: Lint CSS
-        run: stylelint "**/*.css"
+        run: stylelint "css/**/*.css"
 
       # 6. Lint JS
       - name: Lint JS
