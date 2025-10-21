@@ -23,8 +23,18 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 ## Estrutura do Projeto
 
 ```
-├── index.html   # Página principal do site
-└── README.md    # Este arquivo
+├── .github/                 # Configurações do GitHub (workflows de CI/CD)
+│   └── workflows/
+│       └── static.yml       # Workflow para lint e deploy no GitHub Pages
+├── css/                     # Arquivos CSS
+│   ├── style.css            # Estilos gerais do site
+│   └── minigame.css         # Estilos específicos do minijogo
+├── js/                      # Arquivos JavaScript
+│   └── script.js            # Lógica do minijogo
+├── .stylelintrc.json        # Configuração do Stylelint para lint de CSS
+├── .eslintrc.json           # Configuração do ESLint para lint de JS
+├── index.html               # Página principal do site
+└── README.md                # Este arquivo
 ```
 
 ## Como editar

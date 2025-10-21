@@ -120,7 +120,8 @@ code {
     margin-bottom: 0.5rem;
 }
 
-projects li a:hover { /* Remove o sublinhado ao passar o mouse sobre os títulos dos projetos */
+/* Remove o sublinhado ao passar o mouse sobre os títulos dos projetos */
+.projects li a:hover {
     text-decoration: none;
 }
 
