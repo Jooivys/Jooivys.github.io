@@ -42,6 +42,9 @@ jobs:
     name: Deploy para GitHub Pages
     runs-on: ubuntu-latest
     needs: lint  # Só roda se o job de lint passar
+    environment: # Adiciona a configuração de ambiente
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Opcional: para exibir a URL do site no status do workflow
     # Adiciona permissões necessárias para o deploy no GitHub Pages
     permissions:
       pages: write # Permissão para fazer deploy no GitHub Pages
@@ -63,4 +66,5 @@ jobs:
 
       # 4. Faz o deploy do artefato para o GitHub Pages
       - name: Deploy
+        id: deployment # Adiciona um ID para o passo de deploy para poder referenciar a URL
         uses: actions/deploy-pages@v4
