@@ -1,0 +1,150 @@
+/* Estilos Gerais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body { /* Garante que o rodapé fique na parte inferior */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f7f6; /* Fundo claro */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Cabeçalho */
+header { 
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Área de Conteúdo Principal */
+main { 
+    flex: 1; 
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #282c34;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 2em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Trechos de Código */
+code {
+    background-color: #e9ecef;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+/* Seção de Introdução */
+.intro {
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+.intro h2 {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+
+/* Seção de Projetos */
+.projects {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+}
+
+.projects h2 {
+    margin-top: 0;
+}
+
+.projects ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.projects li {
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.projects li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.projects li a {
+    font-weight: bold;
+    display: block; /* Faz o link ocupar toda a largura do item da lista */
+    margin-bottom: 0.5rem;
+}
+
+projects li a:hover { /* Remove o sublinhado ao passar o mouse sobre os títulos dos projetos */
+    text-decoration: none;
+}
+
+/* Rodapé */
+footer {
+    background-color: #282c34;
+    color: #ffffff;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Design Responsivo */
+@media (max-width: 768px) {
+    header h1 { font-size: 2em; }
+    main { margin: 1rem auto; padding: 0 1rem; }
+    h2 { font-size: 1.8em; }
+    .projects li { padding: 0.8rem 1rem; }
+}
+
+@media (max-width: 480px) {
+    header h1 { font-size: 1.8em; }
+    main { padding: 0 0.5rem; }
+    h2 { font-size: 1.5em; }
+    .projects li { padding: 0.7rem 0.8rem; }
+}

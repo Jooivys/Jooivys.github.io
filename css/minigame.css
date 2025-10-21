@@ -1,0 +1,99 @@
+/* Seção do Minijogo */
+.minigame {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+.minigame h2 {
+    margin-top: 0;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    border: 2px solid #333;
+    margin: 2rem auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #e0f7fa; /* Fundo azul claro para o jogo */
+    border-radius: 8px;
+}
+
+#character {
+    width: 30px;
+    height: 30px;
+    background-color: #ff5722; /* Personagem laranja */
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    border-radius: 5px;
+}
+
+#character.jump {
+    animation: jump 0.6s ease-out forwards;
+}
+
+@keyframes jump {
+    0% { bottom: 0; }
+    50% { bottom: 80px; }
+    100% { bottom: 0; }
+}
+
+#obstacle {
+    width: 20px;
+    height: 40px;
+    background-color: #4caf50; /* Obstáculo verde */
+    position: absolute;
+    bottom: 0;
+    right: -20px; /* Começa fora da tela */
+    border-radius: 3px;
+}
+
+#obstacle.animate {
+    animation: moveObstacle 2s linear forwards; /* 'forwards' mantém o estado final */
+}
+
+@keyframes moveObstacle {
+    0% { right: -20px; }
+    100% { right: calc(100% + 20px); } /* Garante que ele saia completamente da tela */
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.minigame button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.minigame button:hover {
+    background-color: #0056b3;
+}
+
+.minigame button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Ajustes responsivos para o minijogo */
+@media (max-width: 480px) {
+    .game-container { height: 120px; } /* Área de jogo menor em telas pequenas */
+    #character { width: 25px; height: 25px; left: 30px; }
+    #obstacle { width: 15px; height: 30px; }
+    @keyframes jump { 0% { bottom: 0; } 50% { bottom: 60px; } 100% { bottom: 0; } }
+}
