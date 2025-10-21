@@ -4,9 +4,9 @@ Bem-vindo ao repositório do meu site pessoal hospedado com [GitHub Pages](https
 
 ## Sobre
 
-Este projeto é um site simples feito em HTML, com um visual moderno, responsivo e um toque especial: um cubo 3D animado usando apenas CSS!
+Este projeto é um site simples feito com HTML, CSS e JavaScript, com um visual moderno e responsivo. Ele serve como uma página inicial pessoal, apresentando projetos e incluindo um minigame interativo de pular obstáculos.
 
-O objetivo é servir como uma página inicial pessoal, apresentando um exemplo de como criar e hospedar um site estático de maneira fácil e gratuita usando o GitHub Pages.
+O objetivo é demonstrar a criação e hospedagem de um site estático no GitHub Pages, com um toque de interatividade.
 
 ## Demonstração
 
@@ -14,10 +14,11 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 
 ## Recursos
 
-- HTML5 e CSS3 puro
+- HTML5, CSS3 e JavaScript puro
 - Layout responsivo
-- Cubo 3D giratório feito com CSS
-- Estrutura simples e fácil de modificar
+- Seção de projetos pessoais
+- Minigame interativo de pular obstáculos
+- Estrutura de projeto organizada com CI/CD para lint e deploy
 
 ## Estrutura do Projeto
 
