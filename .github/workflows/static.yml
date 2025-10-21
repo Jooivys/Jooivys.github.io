@@ -24,7 +24,7 @@ jobs:
       # 3. Instala linters globalmente + configuração recomendada do Stylelint
       - name: Install Linters
         run: |
-          npm install -g htmlhint eslint stylelint stylelint-config-recommended
+          npm install -g htmlhint eslint@8 stylelint stylelint-config-recommended
 
       # 4. Lint HTML
       - name: Lint HTML
