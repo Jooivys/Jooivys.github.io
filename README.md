@@ -50,10 +50,4 @@ Basta modificar o arquivo `index.html` para alterar o conteúdo do site. O GitHu
 
 Para mais informações, veja a [documentação oficial do GitHub Pages](https://pages.github.com/).
 
-## Licença
-
-Este projeto está sob a licença MIT. Sinta-se à vontade para usar e modificar!
-
----
-
 Feito por João Ivys.
