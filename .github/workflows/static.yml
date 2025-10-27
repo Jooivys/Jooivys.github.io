@@ -1,8 +1,11 @@
 name: CI/CD Site Estático
 
-# Dispara o workflow quando houver push na branch main
+# Dispara o workflow em pushes para a branch main e em Pull Requests para a main
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
