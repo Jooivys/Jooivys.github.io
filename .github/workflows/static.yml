@@ -45,6 +45,7 @@ jobs:
   deploy:
     name: Deploy para GitHub Pages
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # Executa o deploy na branch main
     needs: lint  # Só roda se o job de lint passar
     environment: # Adiciona a configuração de ambiente
       name: github-pages
