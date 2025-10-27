@@ -50,4 +50,4 @@ Basta modificar o arquivo `index.html` para alterar o conteúdo do site. O GitHu
 
 Para mais informações, veja a [documentação oficial do GitHub Pages](https://pages.github.com/).
 
-Feito por João Ivys.
+Feito por [Jooivys](https://github.com/Jooivys).
