@@ -12,7 +12,7 @@ on:
 
 jobs:
   lint:
-    name: Lint HTML, CSS e JS
+    name: Verificação com Lint HTML, CSS e JS
     runs-on: ubuntu-latest
 
     steps:
