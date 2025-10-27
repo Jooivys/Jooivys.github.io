@@ -30,7 +30,7 @@
 #character {
     width: 30px;
     height: 30px;
-    background-color: #ff5722; /* Personagem laranja */
+    background-color: red; 
     position: absolute;
     bottom: 0;
     left: 50px;
