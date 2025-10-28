@@ -31,8 +31,9 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 │   └── minigame.css         # Estilos específicos do minijogo
 ├── js/                      # Arquivos JavaScript
 │   └── script.js            # Lógica do minijogo
-├── .stylelintrc.json        # Configuração do Stylelint para lint de CSS
-├── .eslintrc.json           # Configuração do ESLint para lint de JS
+├── .stylelintrc.json        # Configuração do Stylelint para lint do CSS
+├── .eslintrc.json           # Configuração do ESLint para lint do JS
+├── .htmlhinttrc             # Configuração do HTMLHint para lint do HTML
 ├── index.html               # Página principal do site
 └── README.md                # Este arquivo
 ```
