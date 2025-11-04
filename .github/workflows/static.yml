@@ -95,17 +95,9 @@ jobs:
             -v "$(pwd)/zap-results:/zap/wrk/:rw" \
             ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
             -t "${{ needs.deploy.outputs.deployment_page_url }}" \
-            -J zap-report.sarif \
-            -r zap-report.html
-
-      - name: Upload do relatório HTML
-        uses: actions/upload-artifact@v4
-        with:
-         name: zap-html-report
-         path: zap-results/zap-report.html
+            -J zap-report.sarif
 
       - name: Upload do relatório SARIF
         uses: github/codeql-action/upload-sarif@v3
         with:
          sarif_file: zap-results/zap-report.sarif
-
