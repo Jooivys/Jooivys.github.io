@@ -101,10 +101,11 @@ jobs:
       - name: Upload do relatório HTML
         uses: actions/upload-artifact@v4
         with:
-          name: zap-html-report
-          path: ./zap-results/zap-report.html
+         name: zap-html-report
+         path: zap-results/zap-report.html
 
       - name: Upload do relatório SARIF
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ./zap-results/zap-report.sarif
+         sarif_file: zap-results/zap-report.sarif
+
