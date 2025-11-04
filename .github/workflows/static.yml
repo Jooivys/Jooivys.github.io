@@ -75,6 +75,10 @@
       runs-on: ubuntu-latest
       if: needs.deploy.outputs.deployment_page_url != '' # Garante que a URL do deploy está disponível
       needs: deploy # Garante que este job só rode após o deploy ser bem-sucedido
+      permissions:
+        issues: write # Permissão para criar issues no repositório
+        security-events: write # Permissão para fazer upload de relatórios de segurança (SARIF)
+        contents: read # Permissão para ler o conteúdo do repositório
       
       steps:
 
@@ -92,4 +96,4 @@
           uses: zaproxy/action-baseline@v0.11.0
           with:
             target: ${{ needs.deploy.outputs.deployment_page_url }} # Utiliza a URL gerada no passo de deploy
-            # token: ${{ secrets.GITHUB_TOKEN }} # Necessário para criar issues, se configurado
+            token: ${{ secrets.GITHUB_TOKEN }} # Necessário para criar issues, se configurado
