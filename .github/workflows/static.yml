@@ -93,15 +93,20 @@
             done
             echo "Timeout: site indisponível"; exit 1
     
-        - name: ZAP Baseline Scan
-          uses: zaproxy/action-baseline@v0.11.0
-          with:
-            target: ${{ needs.deploy.outputs.deployment_page_url }} # Utiliza a URL gerada no passo de deploy
-            token: ${{ secrets.GITHUB_TOKEN }} # Necessário para criar issues, se configurado
-            sarif_report: zap_report.sarif # Gera um relatório SARIF para a aba "Security"
+        - name: Rodando ZAP Baseline e gerando SARIF
+          run: |
+           docker run --rm -v $(pwd):/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+            -t "${{ needs.deploy.outputs.deployment_page_url }}" \
+            -J zap-report.sarif -r zap-report.html
 
-        - name: Upload SARIF para GitHub Security
-          if: always()
+        - name: Upload do relatório HTML
+          uses: actions/upload-artifact@v4
+          with:
+            name: zap-html-report
+            path: zap-report.html
+
+        - name: Upload do relatório SARIF
           uses: github/codeql-action/upload-sarif@v3
           with:
-            sarif_file: zap_report.sarif    
+            sarif_file: zap-report.sarif
