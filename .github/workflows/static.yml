@@ -75,6 +75,7 @@ jobs:
       contents: read
 
     steps:
+      - uses: actions/checkout@v4
       - name: Esperando o site ficar disponível
         run: |
           url="${{ needs.deploy.outputs.deployment_page_url }}"
