@@ -78,11 +78,12 @@
       permissions:
         issues: write # Permissão para criar issues no repositório
         security-events: write # Permissão para fazer upload de relatórios de segurança (SARIF)
+        actions: write # Permissão para fazer upload de artefatos do workflow
         contents: read # Permissão para ler o conteúdo do repositório
       
       steps:
 
-        - name: Esperando o stie ficar disponível
+        - name: Esperando o site ficar disponível
           run: |
             url="${{ needs.deploy.outputs.deployment_page_url }}"
             echo "Aguardando $url..."
@@ -97,4 +98,10 @@
           with:
             target: ${{ needs.deploy.outputs.deployment_page_url }} # Utiliza a URL gerada no passo de deploy
             token: ${{ secrets.GITHUB_TOKEN }} # Necessário para criar issues, se configurado
-            artifact_name: zap-scan-report  # Nome do artefato de relatório 
+            sarif_report: zap_report.sarif # Gera um relatório SARIF para a aba "Security"
+
+        - name: Upload SARIF para GitHub Security
+          if: always()
+          uses: github/codeql-action/upload-sarif@v3
+          with:
+            sarif_file: zap_report.sarif    
