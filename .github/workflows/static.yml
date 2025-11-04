@@ -1,117 +1,110 @@
-  name: CI/CD Site Estático
+name: CI/CD Site Estático
 
-  # Dispara o workflow em pushes para a branch main e em Pull Requests para a main
-  on:
-    push:
-      branches:
-        - main
-    pull_request:
-      branches:
-        - main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-  jobs:
-    sast:
-      name: Verificação com Lint HTML, CSS e JS
-      runs-on: ubuntu-latest
+jobs:
+  sast:
+    name: Verificação com Lint HTML, CSS e JS
+    runs-on: ubuntu-latest
 
-      steps:
-        # 1. Baixa o repositório
-        - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-        - name: Install Linters
-          run: |
-            npm install -g htmlhint eslint@8 stylelint stylelint-config-recommended
+      - name: Install Linters
+        run: |
+          npm install -g htmlhint eslint@8 stylelint stylelint-config-recommended
 
-        - name: Lint HTML
-          run: htmlhint **/*.html
+      - name: Lint HTML
+        run: htmlhint **/*.html
 
-        - name: Lint CSS
-          run: stylelint "css/**/*.css"
+      - name: Lint CSS
+        run: stylelint "css/**/*.css"
 
-        - name: Lint JS
-          run: eslint js/**/*.js
+      - name: Lint JS
+        run: eslint js/**/*.js
 
-    deploy:
-      name: Deploy para GitHub Pages
-      runs-on: ubuntu-latest
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push' 
-      needs: sast 
-      environment: # Adiciona a configuração de ambiente
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }} # Exibir a URL do site no status do workflow
-      # Adiciona permissões necessárias para o deploy no GitHub Pages
-      permissions:
-        pages: write # Permissão para fazer deploy no GitHub Pages
-        id-token: write # Permissão para autenticação OIDC
-      outputs:
-        deployment_page_url: ${{ steps.deployment.outputs.page_url }} # Exponhe a URL do site para outros jobs
+  deploy:
+    name: Deploy para GitHub Pages
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: sast
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    outputs:
+      deployment_page_url: ${{ steps.deployment.outputs.page_url }}
 
-      steps:
-        # 1. Baixa o repositório
-        - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-        # 2. Configura o GitHub Pages
-        - name: Setup Pages
-          uses: actions/configure-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-        # 3. Faz upload dos arquivos do site como um artefato
-        - name: Upload artifact
-          uses: actions/upload-pages-artifact@v3
-          with:
-            path: ./ # Publica todo o diretório do repositório
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
 
-        # 4. Faz o deploy do artefato para o GitHub Pages
-        - name: Deploy
-          id: deployment # Adiciona um ID para o passo de deploy para poder referenciar a URL
-          uses: actions/deploy-pages@v4
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-    dast:
-      name: Análise Dinâmica com OWASP ZAP
-      runs-on: ubuntu-latest
-      if: needs.deploy.outputs.deployment_page_url != '' # Garante que a URL do deploy está disponível
-      needs: deploy # Garante que este job só rode após o deploy ser bem-sucedido
-      permissions:
-        issues: write # Permissão para criar issues no repositório
-        security-events: write # Permissão para fazer upload de relatórios de segurança (SARIF)
-        actions: write # Permissão para fazer upload de artefatos do workflow
-        contents: read # Permissão para ler o conteúdo do repositório
-      
-      steps:
+  dast:
+    name: Análise Dinâmica com OWASP ZAP
+    runs-on: ubuntu-latest
+    if: needs.deploy.outputs.deployment_page_url != ''
+    needs: deploy
+    permissions:
+      issues: write
+      security-events: write
+      actions: write
+      contents: read
 
-        - name: Esperando o site ficar disponível
-          run: |
-            url="${{ needs.deploy.outputs.deployment_page_url }}"
-            echo "Aguardando $url..."
-            for i in {1..24}; do
-              [ "$(curl -s -o /dev/null -w '%{http_code}' "$url")" = "200" ] && exit 0
-              sleep 5
-            done
-            echo "Timeout: site indisponível"; exit 1
-    
-        - name: Ajustando permissões
-          run: |
-            sudo chmod -R 777 $(pwd)
+    steps:
+      - name: Esperando o site ficar disponível
+        run: |
+          url="${{ needs.deploy.outputs.deployment_page_url }}"
+          echo "Aguardando $url..."
+          for i in {1..24}; do
+            [ "$(curl -s -o /dev/null -w '%{http_code}' "$url")" = "200" ] && exit 0
+            sleep 5
+          done
+          echo "Timeout: site indisponível"; exit 1
 
-        - name: Rodando ZAP Baseline e gerando SARIF
-          continue-on-error: true
-          run: |
-           docker run --rm -v $(pwd):/zap/wrk/:rw \
+      - name: Preparando diretório para relatórios
+        run: mkdir -p ./zap-results
+
+      - name: Rodando ZAP Baseline e gerando SARIF
+        continue-on-error: true
+        run: |
+          docker run --rm -u root \
+            -v "$(pwd)/zap-results:/zap/wrk/:rw" \
             ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
             -t "${{ needs.deploy.outputs.deployment_page_url }}" \
-            -J zap-report.sarif -r zap-report.html
+            -J zap-report.sarif \
+            -r zap-report.html
 
-        - name: Upload do relatório HTML
-          uses: actions/upload-artifact@v4
-          with:
-            name: zap-html-report
-            path: zap-report.html
+      - name: Upload do relatório HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-html-report
+          path: ./zap-results/zap-report.html
 
-        - name: Upload do relatório SARIF
-          uses: github/codeql-action/upload-sarif@v3
-          with:
-            sarif_file: zap-report.sarif
+      - name: Upload do relatório SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./zap-results/zap-report.sarif
