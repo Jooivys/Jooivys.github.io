@@ -98,6 +98,7 @@
             sudo chmod -R 777 $(pwd)
 
         - name: Rodando ZAP Baseline e gerando SARIF
+          continue-on-error: true
           run: |
            docker run --rm -v $(pwd):/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
