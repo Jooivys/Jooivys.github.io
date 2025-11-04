@@ -97,3 +97,4 @@
           with:
             target: ${{ needs.deploy.outputs.deployment_page_url }} # Utiliza a URL gerada no passo de deploy
             token: ${{ secrets.GITHUB_TOKEN }} # Necessário para criar issues, se configurado
+            artifact_name: zap-scan-report  # Nome do artefato de relatório 
