@@ -93,6 +93,10 @@
             done
             echo "Timeout: site indisponível"; exit 1
     
+        - name: Ajustando permissões
+          run: |
+            sudo chmod -R 777 $(pwd)
+
         - name: Rodando ZAP Baseline e gerando SARIF
           run: |
            docker run --rm -v $(pwd):/zap/wrk/:rw \
