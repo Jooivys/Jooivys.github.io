@@ -1,6 +1,6 @@
 # João Ivys - GitHub Pages
 
-Bem-vindo ao repositório do meu site pessoal hospedado com [GitHub Pages](https://pages.github.com/)! 🚀
+Bem-vindo ao repositório do meu site pessoal hospedado com [GitHub Pages](https://pages.github.com/)!
 
 ## Sobre
 
