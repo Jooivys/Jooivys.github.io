@@ -4,9 +4,9 @@ Bem-vindo ao repositório do meu site pessoal hospedado com [GitHub Pages](https
 
 ## Sobre
 
-Este projeto é um site simples feito com HTML, CSS e JavaScript, com um visual moderno e responsivo. Ele serve como uma página inicial pessoal, apresentando projetos e incluindo um minigame interativo de pular obstáculos.
+Este projeto é um site simples feito com HTML, CSS e JavaScript, com um visual moderno e responsivo. Ele serve como uma página inicial pessoal, apresentando projetos e demonstrando a criação de um site estático.
 
-O objetivo é demonstrar a criação e hospedagem de um site estático no GitHub Pages, com um toque de interatividade.
+O objetivo é demonstrar a criação e hospedagem de um site estático no GitHub Pages.
 
 ## Demonstração
 
@@ -17,7 +17,6 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 - HTML5, CSS3 e JavaScript puro
 - Layout responsivo
 - Seção de projetos pessoais
-- Minigame interativo de pular obstáculos
 - Estrutura de projeto organizada com CI/CD para lint e deploy
 
 ## Estrutura do Projeto
@@ -27,10 +26,9 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 │   └── workflows/
 │       └── static.yml       # Workflow para lint e deploy no GitHub Pages
 ├── css/                     # Arquivos CSS
-│   ├── style.css            # Estilos gerais do site
-│   └── minigame.css         # Estilos específicos do minijogo
+│   └── style.css            # Estilos gerais do site
 ├── js/                      # Arquivos JavaScript
-│   └── script.js            # Lógica do minijogo
+│   └── script.js            # Lógica de interface (ex: tema escuro)
 ├── .stylelintrc.json        # Configuração do Stylelint para lint do CSS
 ├── .eslintrc.json           # Configuração do ESLint para lint do JS
 ├── .htmlhinttrc             # Configuração do HTMLHint para lint do HTML
