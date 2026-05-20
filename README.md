@@ -29,9 +29,6 @@ Você pode acessar o site [clicando aqui](https://Jooivys.github.io/).
 │   └── style.css            # Estilos gerais do site
 ├── js/                      # Arquivos JavaScript
 │   └── script.js            # Lógica de interface (ex: tema escuro)
-├── .stylelintrc.json        # Configuração do Stylelint para lint do CSS
-├── .eslintrc.json           # Configuração do ESLint para lint do JS
-├── .htmlhinttrc             # Configuração do HTMLHint para lint do HTML
 ├── index.html               # Página principal do site
 └── README.md                # Este arquivo
 ```
