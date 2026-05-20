@@ -85,17 +85,3 @@ jobs:
             sleep 5
           done
           echo "Timeout: site indisponível"; exit 1
-
-      - name: Rodando ZAP Baseline e gerando SARIF
-        continue-on-error: true
-        run: |
-          docker run --rm -u root \
-            -v "$(pwd):/zap/wrk/:rw" \
-            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
-            -t "${{ needs.deploy.outputs.deployment_page_url }}" \
-            -J zap-report.sarif
-
-      - name: Upload do relatório SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: zap-report.sarif
